@@ -32,5 +32,5 @@ x = torch.randn(4, 3, 32, 32)
 # augment images
 augmented = aug(x)
 # adjust strength
-aug.p = 0.5
+aug.p.copy_(0.5)
 ```
