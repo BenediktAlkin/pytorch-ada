@@ -142,6 +142,11 @@ class AdaptiveDiscriminatorAugmentation(nn.Module):
             Hz_fbank[i, (Hz_fbank.shape[1] - Hz_hi2.size) // 2: (Hz_fbank.shape[1] + Hz_hi2.size) // 2] += Hz_hi2
         self.register_buffer("Hz_fbank", torch.as_tensor(Hz_fbank, dtype=torch.float32))
 
+    def set_p(self, p):
+        if not torch.is_tensor(p):
+            p = torch.tensor(p)
+        self.p.copy_(p)
+
     def forward(self, images):
         assert torch.is_tensor(images) and images.ndim == 4
         batch_size, num_channels, height, width = images.shape
